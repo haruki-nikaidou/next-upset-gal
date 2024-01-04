@@ -1,0 +1,21 @@
+.buttonDefault {
+    @apply rounded-xl flex-1 p-2 duration-200 leading-4;
+}
+
+.buttonDefault:hover {
+    background-color: rgba(232, 232, 232, 0.75);
+}
+
+.buttonContainer {
+    @apply flex flex-row gap-1 justify-between rounded-xl;
+    background-color: rgba(232, 232, 232, 0.5);
+}
+
+.selected {
+    background-color: rgb(42, 42, 42);
+    color: white;
+}
+
+.selected:hover {
+    background-color: rgb(42, 42, 42);
+}

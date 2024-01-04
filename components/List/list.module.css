@@ -1,0 +1,25 @@
+.list {
+    @apply overflow-auto border border-neutral-800 rounded-lg;
+}
+
+.list > div + div {
+    @apply border-t border-neutral-800;
+}
+
+.list > div:last-child {
+    @apply rounded-b-lg;
+}
+
+.list > div:first-child {
+    @apply rounded-t-lg;
+}
+
+.control {
+    @apply flex mt-3 w-full justify-between items-center;
+    @apply flex-col mt-0;
+    @apply sm:flex-row sm:mt-2;
+}
+
+.buttonGroup {
+    @apply flex min-w-[5em] overflow-auto rounded-lg border border-neutral-800;
+}
