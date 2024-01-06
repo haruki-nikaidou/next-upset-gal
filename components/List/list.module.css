@@ -23,3 +23,70 @@
 .buttonGroup {
     @apply flex min-w-[5em] overflow-auto rounded-lg border border-neutral-800;
 }
+
+.buttonGroup > button {
+    @apply text-sm py-3 px-1 duration-300 bg-none hover:bg-white hover:bg-opacity-50;
+}
+
+.buttonGroup > :first-child {
+    @apply rounded-l-lg;
+}
+
+.buttonGroup > :last-child {
+    @apply rounded-r-lg;
+}
+
+.buttonGroup > button + button {
+    @apply border border-neutral-800;
+}
+
+.goto {
+    @apply h-5 flex items-center rounded-lg border border-neutral-800 pr-3 text-sm;
+}
+
+.goto > button {
+    height: 100%;
+    border-top-left-radius: .5em;
+    border-bottom-left-radius: .5em;
+    border: none;
+    padding: .5em;
+    border-right: rgba(52, 52, 52, 0.25) 1pt solid;
+    background: none;
+    outline: none;
+    margin-right: .5em;
+    transition: background-color 0.5s;
+}
+
+.goto > button:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.goto > input {
+    border: none;
+    background: none;
+    outline: none;
+    box-sizing: border-box;
+    padding: .25em;
+    height: 100%;
+    width: 3em;
+    border-left: rgba(52, 52, 52, 0.25) 1pt solid;
+    border-right: rgba(52, 52, 52, 0.25) 1pt solid;
+    margin: 0 .5em;
+    background: rgba(255, 255, 255, 0.33);
+}
+
+button.selected {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+button[disabled] {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+button[disabled]:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+button[disabled] {
+    cursor: not-allowed;
+}

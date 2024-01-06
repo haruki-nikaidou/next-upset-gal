@@ -1,5 +1,6 @@
-import {ListItemProps} from "@/components/List/ListItem";
+import ListItem, {ListItemProps} from "@/components/List/ListItem";
 import React from "react";
+import styles from './list.module.css'
 
 export interface ListProps<InitReturn> {
     items: ListItemProps[];
@@ -54,7 +55,7 @@ export default function List(props: ListProps<any>) {
                         return (
                             <button key={index}
                                     onClick={() => setPage(index - 1)}
-                                    className={}
+                                    className={index === page + 1 ? styles.selected : undefined}
                             >
                                 {index}
                             </button>
@@ -64,4 +65,74 @@ export default function List(props: ListProps<any>) {
             </>
         )
     }
+
+    // goto page input
+    const [inputPage, setInputPage] = React.useState(page + 1);
+    const handleInputPageChange = (event: React.FormEvent<HTMLInputElement>) => {
+        const value = event.currentTarget.value;
+        if (parseInt(value) > 0) {
+            setInputPage(parseInt(value));
+        } else if (value !== '') {
+            setInputPage(page + 1);
+        }
+    }
+
+    // api
+    const api: ListApi = {
+        pageTo: (page: number) => {
+            setPage(page);
+        },
+        getPage: () => {
+            return page;
+        }
+    }
+    props.onInit?.(api);
+
+    return (
+        <div className={'glass higher-blur glass-on-glass'}>
+            <div className={`${styles.list}`}>
+                {
+                    pages[page].map((item, index) => {
+                        return (
+                            <ListItem title={item.title} size={item.size} resourceType={item.resourceType}
+                                        key={'__list' + index + Math.random()} onClick={item.onClick} onContextMenu={item.onContextMenu}/>
+
+                        )
+                    })
+                }
+            </div>
+            <div className={`${styles.control}`}>
+                <div className={`${styles.buttonGroup}`}>
+                    <button
+                        disabled={page === 0}
+                        onClick={previousPage}
+                    > {'<'} </button>
+                    {<Buttons />}
+                    <button
+                        disabled={page === pages.length - 1}
+                        onClick={nextPage}
+                    > {'>'} </button>
+                </div>
+                <div className={`${styles.goto}`}>
+                    <button
+                        onClick={() => {
+                            if (inputPage > 0 && inputPage <= pages.length) {
+                                setPage(inputPage - 1);
+                            } else {
+                                setInputPage(page + 1);
+                            }
+                        }}
+                    >跳</button>
+                    <span>到第</span>
+                    <input
+                        value={inputPage}
+                        onInput={(e) => {
+                            handleInputPageChange(e);
+                        }}
+                    />
+                    <span>页</span>
+                </div>
+            </div>
+        </div>
+    )
 }

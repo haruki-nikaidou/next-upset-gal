@@ -3,25 +3,92 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: #150a03;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+    --foreground-rgb: #150a03;
+    --background-start-rgb: 214, 219, 220;
+    --background-end-rgb: 255, 255, 255;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+    :root {
+        --foreground-rgb: 255, 255, 255;
+        --background-start-rgb: 0, 0, 0;
+        --background-end-rgb: 0, 0, 0;
+    }
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+    color: rgb(var(--foreground-rgb));
+    background: linear-gradient(
+            to bottom,
+            transparent,
+            rgb(var(--background-end-rgb))
+    ) rgb(var(--background-start-rgb));
+}
+
+
+.glass {
+    background-color: #ffd3d965;
+    box-shadow: 5px 5px 10px rgba(53, 33, 37, 0.3);
+    border-bottom: solid 1px #816967;
+    border-radius: 1rem;
+    backdrop-filter: blur(3px);
+    @apply p-4;
+}
+
+.glass a {
+    color: #c92f50;
+    text-decoration: underline;
+}
+
+.glass.high-blur {
+    backdrop-filter: blur(10px);
+}
+
+.glass.higher-blur {
+    backdrop-filter: blur(20px);
+}
+
+.glass.highest-blur {
+    backdrop-filter: blur(30px);
+}
+
+.glass.glass-on-glass {
+    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: none;
+    border: none;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    height: 100%;
+    width: 100%;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+}
+
+@media screen and (min-width: 2963px) {
+    html {
+        font-size: 0.54vmax;
+    }
+}
+
+body {
+    width: 100%;
+    min-height: 100%;
+    padding-top: 5rem;
+    background-image: url("assets/background.jpg"), linear-gradient(to right, #ffcdb9, #ffb9b9, #FFC0CB);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+}
+
+h1 {
+    font-size: 3.2em;
+    line-height: 1.1;
 }

@@ -1,0 +1,17 @@
+a.mainButton {
+    background-color: #bb4650; /* Green */
+    border: none;
+    color: white;
+    padding: 1rem 3rem;
+    border-radius: 5rem;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    transition: 0.3s;
+}
+
+a.mainButton:hover {
+    background-color: #ce5e67;
+    color: white;
+    cursor: pointer;
+}

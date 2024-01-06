@@ -1,0 +1,129 @@
+.header {
+    display: inline-flex;
+    justify-content: right;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-right: 1em;
+}
+
+.header a {
+    color: #000;
+    text-decoration: none;
+}
+
+.bar {
+    position: fixed;
+    width: 100%;
+    padding: 0;
+    top: 0;
+    left: 0;
+    height: 3.5em;
+    font-family: Arial, Helvetica, sans-serif;
+    box-shadow: 0 2px 10px rgba(53, 33, 37, 0.3);
+    border-radius: 0 !important;
+    z-index: 4;
+    box-sizing: border-box;
+}
+
+.bar.mobileBar {
+    display: flex;
+    flex-direction: row;
+}
+
+.expandIcon > img {
+    transition: transform 0.3s ease;
+    transform: rotate(0deg);
+}
+
+.reversedIcon > img {
+    transform: rotate(-180deg);
+}
+
+.bar.mobileBar > button {
+    background: none;
+    border: none;
+    border-left: solid 1pt rgba(96, 96, 96, 0.5);
+    width: 3.4375rem;
+    box-sizing: border-box;
+}
+
+.title.mobileTitle {
+    flex: 5;
+    width: 100%;
+    padding: 0;
+    text-align: center;
+    margin: auto 0 auto 0;
+}
+
+.mobileHeader {
+    display: flex;
+    position: fixed;
+    width: 100vw;
+    top: 3.5em;
+    left: 0;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 0 0 0.5rem 0.5rem;
+    box-sizing: border-box;
+    transition-delay: 1s;
+    transition: transform 0.3s ease;
+    z-index: 2;
+}
+
+.mobileHeader.hidden {
+    transform: translateY(calc(-100% - 4em));
+}
+
+.mobileHeader > div {
+    width: 100vw;
+    height: 2.5em;
+    line-height: 2.5;
+}
+
+.mobileHeader > div:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.mobileHeader > div.selectedItem {
+    background-color: rgba(255, 255, 255, 0.75);
+}
+
+.title {
+    text-align: left;
+    margin-left: 1.5em;
+}
+
+.headerItem {
+    min-width: 3em;
+    text-align: center;
+    padding: 0.35em .75em;
+    height: 100%;
+    box-sizing: border-box;
+    border-radius: .25em;
+    transition: background-color 0.3s;
+    margin: 0 0.2em;
+}
+
+.headerItem:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.selectedItem {
+    background-color: rgba(255, 255, 255, 0.75);
+}
+
+.selectedItem:hover {
+    background-color: rgba(255, 255, 255, 0.35) !important;
+}
+
+.headerContainer {
+    position: relative;
+    width: 100%;
+    max-width: 75em;
+    justify-content: space-between;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    margin: auto;
+    height: 3.5em;
+}
