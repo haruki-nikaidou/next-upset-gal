@@ -12,9 +12,10 @@
     "@trpc/client": "^10.45.0",
     "@trpc/server": "^10.45.0",
     "next": "14.0.4",
-    "onedrive-tree": "^1.1.1",
+    "onedrive-tree": "^1.2.2",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/node": "^20",
