@@ -1,5 +1,6 @@
 import type {ExplorerDirectory, ExplorerFile} from '@/components/Explorer/Explorer';
 import {FileTree} from 'onedrive-tree';
+import type {File} from "onedrive-tree/dist/fileSystem";
 
 export function odTreeToClientOnly(odTree: FileTree): ExplorerDirectory {
     const root: ExplorerDirectory = {
@@ -20,4 +21,12 @@ export function odTreeToClientOnly(odTree: FileTree): ExplorerDirectory {
         }
     }
     return root;
+}
+
+export function odFileToClientOnly(odFiles: File): ExplorerFile {
+    return {
+        name: odFiles.name,
+        size: odFiles.size + 'MB',
+        type: 'file',
+    };
 }
