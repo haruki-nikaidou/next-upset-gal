@@ -16,6 +16,10 @@ export default function Header() {
     let activePage: ActivePage;
     if (path.includes('/search')) {
         activePage = ActivePage.SEARCH;
+    } else if (path.includes('/catalog')) {
+        activePage = ActivePage.CATALOG;
+    } else if (path.includes('/fancy')) {
+        activePage = ActivePage.FANCY;
     } else if (path.includes('/')) {
         activePage = ActivePage.HOME;
     } else {
@@ -34,10 +38,10 @@ export default function Header() {
                     <a className={`${styles.headerItem} ${activePage === ActivePage.SEARCH ? styles.selectedItem : ''}`} href='/search'>
                         搜索
                     </a>
-                    <a className={`${styles.headerItem}`}>
+                    <a className={`${styles.headerItem} ${activePage === ActivePage.CATALOG ? styles.selectedItem : ''}`} href='/catalog'>
                         目录
                     </a>
-                    <a className={`${styles.headerItem}`}>
+                    <a className={`${styles.headerItem} ${activePage === ActivePage.FANCY ? styles.selectedItem : ''}`} href='/fancy'>
                         百宝箱
                     </a>
                 </span>

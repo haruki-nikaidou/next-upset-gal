@@ -107,8 +107,8 @@ export default function List(props: ListProps<any>) {
                 {
                     pages[page].map((item, index) => {
                         return (
-                            <ListItem title={item.title} size={item.size} resourceType={item.resourceType}
-                                        key={'__list' + index + Math.random()} onClick={item.onClick} onContextMenu={item.onContextMenu}/>
+                            <ListItem name={item.name} size={item.size} type={item.type}
+                                      key={'__list' + index + Math.random()} onClick={item.onClick} onContextMenu={item.onContextMenu}/>
 
                         )
                     })

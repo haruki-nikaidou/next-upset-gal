@@ -1,0 +1,15 @@
+.pathBar {
+    @apply border-neutral-400 border rounded-lg flex;
+}
+
+.pathBar span:first-child {
+    @apply border-neutral-400 border-r;
+}
+
+.pathBar > span + span {
+    @apply border-neutral-400 border-r;
+}
+
+.pathBar span {
+    @apply py-2 px-4 hover:bg-red-200 hover:bg-opacity-75 duration-500;
+}

@@ -1,6 +1,9 @@
 'use client';
 
 import {useState} from "react";
+import List from "@/components/List/List";
+import PathBar from "@/components/Explorer/PathBar";
+import Search from "@/components/Search/Search";
 
 export type ExplorerFile = {
     name: string;
@@ -11,6 +14,7 @@ export type ExplorerFile = {
 export type ExplorerDirectory = {
     name: string;
     type: 'directory';
+    size: string;
     children: (ExplorerFile | ExplorerDirectory)[];
 }
 
@@ -36,5 +40,19 @@ export default function Explorer(props: ExplorerProps) {
     };
     const popStack = (): [number?, ExplorerDirectory?] => [pageStack.pop(), pathStack.pop()];
 
-
+    return (
+        <div className="space-y-2">
+            <Search />
+            <PathBar path={
+                pathStack.map((path) => path.name)
+            } onClick={(index) => {
+                const [page, path] = popStack();
+                setCurrentPathDepth(index);
+                if (page !== undefined && path !== undefined) {
+                    pushStack(page, path);
+                }
+            }} />
+            <List items={pathStack[currentPathDepth].children}  />
+        </div>
+    )
 }
