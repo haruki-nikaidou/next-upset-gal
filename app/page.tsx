@@ -4,7 +4,7 @@ import MainButton from "@/app/MainButton";
 export default function Home() {
     return (
         <main className="grid grid-cols-4 md:grid-cols-8 text-center gap-3 px-4 w-full max-w-5xl ml-auto mr-auto">
-            <div className="col-span-4 md:col-span-8 w-full flex flex-col items-center gap-3 glass higher-blur">
+            <div className="col-span-4 md:col-span-8 w-full flex flex-col items-center gap-5 glass higher-blur">
                 <Logo />
                 <MainButton href="/search">
                     搜索资源
