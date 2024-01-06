@@ -20,7 +20,9 @@ export default function RootLayout({
     <html lang="zh">
       <body className={inter.className}>
       <Header />
-      {children}
+      <div className="min-h-screen pt-20 pb-[7.25rem] box-border">
+          {children}
+      </div>
       <Footer />
       </body>
     </html>

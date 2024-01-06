@@ -75,18 +75,18 @@
     background: rgba(255, 255, 255, 0.33);
 }
 
-button.selected {
+.buttonGroup button.selected {
     background: rgba(255, 255, 255, 0.5);
 }
 
-button[disabled] {
+.buttonGroup button[disabled] {
     background: rgba(255, 255, 255, 0.5);
 }
 
-button[disabled]:hover {
+.buttonGroup button[disabled]:hover {
     background: rgba(255, 255, 255, 0.5);
 }
 
-button[disabled] {
+.buttonGroup button[disabled] {
     cursor: not-allowed;
 }

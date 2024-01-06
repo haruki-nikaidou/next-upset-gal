@@ -8,6 +8,7 @@ export interface ListProps<InitReturn> {
     items: ListItemProps[];
     itemPerPage?: number;
     onInit?: (list: ListApi) => InitReturn;
+    emptyText?: string;
 }
 
 export interface ListApi {
@@ -89,6 +90,16 @@ export default function List(props: ListProps<any>) {
         }
     }
     props.onInit?.(api);
+
+    if (pages.length === 0) {
+        return (
+            <div className={'glass glass-on-glass w-full h-64 flex items-center justify-center'}>
+                <h2 className="text-neutral-500">
+                    {props.emptyText ?? '什么结果都没有哦，是不是弄错了什么？'}
+                </h2>
+            </div>
+        )
+    }
 
     return (
         <div className={'glass higher-blur glass-on-glass'}>

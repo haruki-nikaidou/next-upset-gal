@@ -80,7 +80,6 @@ html {
 body {
     width: 100%;
     min-height: 100%;
-    padding-top: 5rem;
     background-image: url("assets/background.jpg"), linear-gradient(to right, #ffcdb9, #ffb9b9, #FFC0CB);
     background-size: cover;
     background-repeat: no-repeat;
