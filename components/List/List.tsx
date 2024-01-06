@@ -1,3 +1,5 @@
+'use client';
+
 import ListItem, {ListItemProps} from "@/components/List/ListItem";
 import React from "react";
 import styles from './list.module.css'
