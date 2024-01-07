@@ -40,8 +40,17 @@ async function refreshDrives() {
 }
 
 export async function wheel() {
+    const errorHook = (err: any) => {
+        console.error("Failed to refresh drives!");
+        console.error(err);
+        currentDrive = (currentDrive - 1) % Alters;
+    };
     const timer = setInterval(async () => {
-        await refreshDrives();
+        try {
+            await refreshDrives();
+        } catch (err) {
+            errorHook(err);
+        }
         currentDrive = (currentDrive + 1) % Alters;
     }, WheelCycleLength);
     return {
