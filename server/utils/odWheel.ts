@@ -15,7 +15,7 @@ type ConfigFile = {
 }
 
 const configFile = fs.readFileSync(configPath, "utf-8");
-const WheelCycleLength = 30 * 60 * 1000; // 30 minutes
+const WheelCycleLength = 10 * 60 * 1000; // 10 minutes
 const Alters = 3;
 
 let currentDrive = 0;
