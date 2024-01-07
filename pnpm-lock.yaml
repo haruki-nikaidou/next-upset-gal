@@ -11,6 +11,9 @@ dependencies:
   '@trpc/server':
     specifier: ^10.45.0
     version: 10.45.0
+  axios:
+    specifier: ^1.6.5
+    version: 1.6.5
   fuse.js:
     specifier: ^7.0.0
     version: 7.0.0
@@ -18,8 +21,8 @@ dependencies:
     specifier: 14.0.4
     version: 14.0.4(react-dom@18.2.0)(react@18.2.0)
   onedrive-tree:
-    specifier: ^1.2.2
-    version: 1.2.2
+    specifier: ^2.0.0
+    version: 2.0.0
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -2060,8 +2063,8 @@ packages:
       wrappy: 1.0.2
     dev: true
 
-  /onedrive-tree@1.2.2:
-    resolution: {integrity: sha512-r10Uj2ipB527jew6/pk1MTWG+FlKGK2OUCMPXClYaUdSd+tQSpHK4rn3+f4m4a7hE2BAYy7KpStOkfaKYePxgw==}
+  /onedrive-tree@2.0.0:
+    resolution: {integrity: sha512-QrVxg2fnUiyUhktjnYWmDrR3RzAAQCSTe682I2tpKpFiJcW5CbgEOLZp1wd1rX18Rn1VF9LeZGubkfqM1VGn1Q==}
     dependencies:
       axios: 1.6.5
     transitivePeerDependencies:
