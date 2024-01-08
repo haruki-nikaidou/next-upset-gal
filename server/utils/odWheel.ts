@@ -1,6 +1,11 @@
-import {OnedriveTree, auth, DirectoryNode} from "./onedrive/index";
+import {OnedriveTree, auth} from "./onedrive/index";
 import path from "node:path";
 import * as fs from "fs";
+import OnedriveForestFs from "@/server/utils/onedrive/forest";
+import {ExplorerDirectory} from "@/components/Explorer/Explorer";
+import {odTreeToClientOnly} from "@/server/utils/odTreeToClientOnly";
+import {CompressedPaths} from "@/server/utils/onedrive/fileSystem";
+import type {File} from "onedrive-tree/dist/fileSystem";
 
 const configPath = path.join(__dirname, "../../config.json");
 
@@ -22,24 +27,52 @@ let currentDrive = 0;
 
 const config: ConfigFile = JSON.parse(configFile);
 
-async function getDrives() {
-    return await Promise.all(config.od.map(async (odConfig) => {
+async function getDrives(): Promise<Cached> {
+    const roots = await Promise.all(config.od.map(async (odConfig) => {
         const accessToken = await auth.fetchAccessToken(odConfig);
-        const drive =  {
+        const drive = {
             driveId: await auth.getOneDriveDriveId(accessToken),
             accessToken,
         }
         return await OnedriveTree(drive);
-    }))
+    }));
+    const fs = new OnedriveForestFs(roots);
+    return {
+        fs,
+        clientOnly: odTreeToClientOnly(fs.root),
+        compressedPaths: fs.index,
+        kvObject: Array.from(
+            fs.index.entries(),
+            ([key, value]) => ({
+                    key,
+                    value,
+                }
+            )
+        )
+    };
 }
 
-let drives: DirectoryNode[][] = [await getDrives()];
+type Cached = {
+    fs: OnedriveForestFs,
+    clientOnly: ExplorerDirectory,
+    compressedPaths: CompressedPaths,
+    kvObject: {
+        key: string,
+        value: File,
+    }[]
+}
+let drives: Cached[] = [await getDrives()];
 
 async function refreshDrives() {
     drives[currentDrive + 1] = await getDrives();
 }
 
-export async function wheel() {
+export type Wheel = {
+    stop: () => void,
+    getCache: () => Cached,
+}
+
+export async function wheel(): Promise<Wheel> {
     const errorHook = (err: any) => {
         console.error("Failed to refresh drives!");
         console.error(err);
@@ -56,7 +89,7 @@ export async function wheel() {
         stop: () => {
             clearInterval(timer);
         },
-        getDrives: () => {
+        getCache: () => {
             return drives[currentDrive];
         },
     }
