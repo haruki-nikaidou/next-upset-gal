@@ -4,7 +4,7 @@ import Logo from "@/components/Logo/Logo";
 import Search from "@/components/Search/Search";
 import List from "@/components/List/List";
 import React from "react";
-import {trpc} from "@/app/api/[trpc]/trpc";
+import {trpc} from "@/app/api/trpc/[trpc]/trpc";
 import {ExplorerDirectory, type ExplorerFile} from "@/components/Explorer/Explorer";
 import {ListItemProps} from "@/components/List/ListItem";
 
