@@ -28,8 +28,10 @@ let currentDrive = 0;
 const config: ConfigFile = JSON.parse(configFile);
 
 async function getDrives(): Promise<Cached> {
+    console.log("Refreshing drives...")
     const roots = await Promise.all(config.od.map(async (odConfig) => {
         const accessToken = await auth.fetchAccessToken(odConfig);
+        console.log("Access token fetched!")
         const drive = {
             driveId: await auth.getOneDriveDriveId(accessToken),
             accessToken,
@@ -37,6 +39,7 @@ async function getDrives(): Promise<Cached> {
         return await OnedriveTree(drive);
     }));
     const fs = new OnedriveForestFs(roots);
+    console.log("Drives refreshed!")
     return {
         fs,
         clientOnly: odTreeToClientOnly(fs.root),

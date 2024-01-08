@@ -6,6 +6,7 @@ export interface ListItemProps {
     name: string;
     size: string;
     type: string;
+    append?: any,
     onClick?: (event: React.MouseEvent<HTMLDivElement>, item: ListItemProps) => void;
     onContextMenu?: (event: React.MouseEvent<HTMLDivElement>, item: ListItemProps) => void;
 }

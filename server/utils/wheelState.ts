@@ -9,11 +9,14 @@ const query = (path: string) => {
     return fs.compressedPaths.get(path);
 }
 
-const globalFuse = (pathKey: string): File[] => {
+const globalFuse = (pathKey: string): {
+    key: string,
+    value: File,
+}[] => {
     const fuse = new Fuse(getCache().kvObject, {
         keys: ['key'],
     });
-    return fuse.search(pathKey).map(({item}) => item.value);
+    return fuse.search(pathKey).map(item => item.item);
 }
 
 const fs = () => getCache().fs;

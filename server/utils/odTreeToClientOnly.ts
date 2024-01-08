@@ -27,7 +27,7 @@ export function odFileToClientOnly(odFiles: File): ExplorerFile {
     };
 }
 
-function byteSizeToString(size: number): string {
+export function byteSizeToString(size: number): string {
     if (size < 1024) {
         return size + 'B';
     } else if (size < 1024 * 1024) {
