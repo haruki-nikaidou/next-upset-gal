@@ -19,9 +19,11 @@ export interface ListApi {
 export default function List(props: ListProps<any>) {
     const itemPerPage = props.itemPerPage ?? 10;
     const pages: ListItemProps[][] = [];
+    console.log(props)
     for (let i = 0; i < props.items.length; i += itemPerPage) {
         pages.push(props.items.slice(i, i + itemPerPage));
     }
+    console.log(pages)
     const [page, setPage] = React.useState(0);
     const previousPage = () => {
         if (page > 0) {

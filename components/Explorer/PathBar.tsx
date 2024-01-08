@@ -8,7 +8,7 @@ interface PathBarProps {
 export default function PathBar(props: PathBarProps) {
     return (
         <div className={styles.pathBar}>
-            <span>
+            <span onClick={() => {props.onClick(props.path.length - 2)}}>
                 {'<'}
             </span>
             {

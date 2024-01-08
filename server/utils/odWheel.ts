@@ -5,7 +5,7 @@ import OnedriveForestFs from "@/server/utils/onedrive/forest";
 import {ExplorerDirectory} from "@/components/Explorer/Explorer";
 import {odTreeToClientOnly} from "@/server/utils/odTreeToClientOnly";
 import {CompressedPaths} from "@/server/utils/onedrive/fileSystem";
-import type {File} from "onedrive-tree/dist/fileSystem";
+import type {File} from "./onedrive/fileSystem";
 
 interface OdConfig {
     refreshToken: string;
@@ -33,7 +33,7 @@ export type Wheel = {
     getCache: () => Cached,
 }
 
-export async function wheelGen(): Promise<Wheel> {
+export async function wheelGen(): Promise<() => Wheel> {
     const configPath = path.join(__dirname, "../../../../config.json");
     console.log("Config File:",configPath)
 
@@ -102,14 +102,14 @@ export async function wheelGen(): Promise<Wheel> {
             errorHook(err);
         }
     }, WheelCycleLength);
-    return {
+    return () => { return {
         stop: () => {
             clearInterval(timer);
         },
         getCache: () => {
             return drives[currentDrive];
         },
-    }
+    }}
 }
 
 export const wheel = wheelGen();

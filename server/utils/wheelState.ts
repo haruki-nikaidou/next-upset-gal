@@ -2,7 +2,9 @@ import {wheel} from "@/server/utils/odWheel";
 import type {File} from "onedrive-tree/dist/fileSystem";
 import Fuse from "fuse.js";
 
-const getCache = (await wheel).getCache;
+const w = (await wheel)();
+
+const getCache = w.getCache;
 
 const query = (path: string) => {
     const fs = getCache();
@@ -19,13 +21,15 @@ const globalFuse = (pathKey: string): {
     return fuse.search(pathKey).map(item => item.item);
 }
 
-const fs = () => getCache().fs;
+const fs = () => w.getCache().fs;
 
-const clientOnly = () => getCache().clientOnly;
+const clientOnly = () => w.getCache().clientOnly;
 
-export {
-    query,
-    globalFuse,
-    fs,
-    clientOnly
+export function wheelState() {
+    return {
+        query,
+        globalFuse,
+        fs,
+        clientOnly
+    }
 }

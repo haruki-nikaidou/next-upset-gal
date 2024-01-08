@@ -1,5 +1,5 @@
 import Explorer, {ExplorerDirectory} from "@/components/Explorer/Explorer";
-import {clientOnly} from "@/server/utils/wheelState";
+import {wheelState} from "@/server/utils/wheelState";
 
 export default async function CatalogPage() {
     return (
@@ -8,7 +8,7 @@ export default async function CatalogPage() {
                 <h1 className="text-2xl">
                     资源目录
                 </h1>
-                <Explorer root={clientOnly()}/>
+                <Explorer root={wheelState().clientOnly()}/>
             </div>
         </main>
     )

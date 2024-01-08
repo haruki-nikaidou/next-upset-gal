@@ -24,7 +24,7 @@ export type CompressedPaths = Map<string, File>;
 
 export function fromOdTree(tree: DirectoryNode): Directory {
     const root: Directory = {
-        name: 'root',
+        name: tree.name,
         files: {},
         subdirectories: {},
         indexes: [],
@@ -166,7 +166,7 @@ export function combineFile(a: File, b: File): File {
 export function combineDirectory(a: Directory, b: Directory): Directory {
     // create new root
     const newRoot: Directory = {
-        name: 'root',
+        name: a.name,
         files: {},
         subdirectories: {},
         indexes: [],
