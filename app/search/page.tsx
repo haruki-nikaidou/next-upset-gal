@@ -41,7 +41,8 @@ export default function SearchPage() {
                     setListEmptyReason(ListEmptyReason.SearchEmpty);
                     setItems(tRpcResultToItems(result));
                 }
-            }).catch(() => {
+            }).catch((err) => {
+                console.log(err)
                 setListEmptyReason(ListEmptyReason.SearchError);
             })
         }
