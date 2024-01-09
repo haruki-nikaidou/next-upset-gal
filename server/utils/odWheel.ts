@@ -33,75 +33,76 @@ export type Wheel = {
     getCache: () => Cached,
 }
 
-export async function wheelGen(): Promise<() => Wheel> {
-    const configPath = path.join(__dirname, "../../../../config.json");
-    console.log("Config File:",configPath)
+const configPath = path.join(__dirname, "../../../../config.json");
+console.log("Config File:",configPath)
 
-    try {
-        fs.readFileSync(configPath, "utf-8");
-    } catch (err) {
-        console.error("Failed to read config file!");
-        console.error(err);
-        process.exit(1);
-    }
+try {
+    fs.readFileSync(configPath, "utf-8");
+} catch (err) {
+    console.error("Failed to read config file!");
+    console.error(err);
+    process.exit(1);
+}
 
-    const configFile = fs.readFileSync(configPath, "utf-8");
-    const WheelCycleLength = 10 * 60 * 1000; // 10 minutes
-    const Alters = 3;
+const configFile = fs.readFileSync(configPath, "utf-8");
+const WheelCycleLength = 10 * 60 * 1000; // 10 minutes
+const Alters = 3;
 
-    let currentDrive = 0;
+let currentDrive = 0;
 
-    const config: ConfigFile = JSON.parse(configFile);
+const config: ConfigFile = JSON.parse(configFile);
 
-    console.log("Config loaded!")
+console.log("Config loaded!")
 
-    let drives: Cached[] = [await getDrives()];
+let drives: Cached[] = [await getDrives()];
 
-    async function refreshDrives() {
-        drives[currentDrive + 1] = await getDrives();
-    }
+async function refreshDrives() {
+    drives[currentDrive + 1] = await getDrives();
+}
 
-    async function getDrives(): Promise<Cached> {
-        console.log("Refreshing drives...")
-        const roots = await Promise.all(config.od.map(async (odConfig) => {
-            const accessToken = await auth.fetchAccessToken(odConfig);
-            console.log("Access token fetched!")
-            const drive = {
-                driveId: await auth.getOneDriveDriveId(accessToken),
-                accessToken,
-            }
-            return await OnedriveTree(drive);
-        }));
-        const fs = new OnedriveForestFs(roots);
-        console.log("Drives refreshed!")
-        return {
-            fs,
-            clientOnly: odTreeToClientOnly(fs.root),
-            compressedPaths: fs.index,
-            kvObject: Array.from(
-                fs.index.entries(),
-                ([key, value]) => ({
-                        key,
-                        value,
-                    }
-                )
-            )
-        };
-    }
-
-    console.log("Starting wheel...")
-    const errorHook = (err: any) => {
-        console.error("Failed to refresh drives!");
-        console.error(err);
-    };
-    const timer = setInterval(async () => {
-        try {
-            await refreshDrives();
-            currentDrive = (currentDrive + 1) % Alters;
-        } catch (err) {
-            errorHook(err);
+async function getDrives(): Promise<Cached> {
+    console.log("Refreshing drives...")
+    const roots = await Promise.all(config.od.map(async (odConfig) => {
+        const accessToken = await auth.fetchAccessToken(odConfig);
+        console.log("Access token fetched!")
+        const drive = {
+            driveId: await auth.getOneDriveDriveId(accessToken),
+            accessToken,
         }
-    }, WheelCycleLength);
+        return await OnedriveTree(drive);
+    }));
+    const fs = new OnedriveForestFs(roots);
+    console.log("Drives refreshed!")
+    return {
+        fs,
+        clientOnly: odTreeToClientOnly(fs.root),
+        compressedPaths: fs.index,
+        kvObject: Array.from(
+            fs.index.entries(),
+            ([key, value]) => ({
+                    key,
+                    value,
+                }
+            )
+        )
+    };
+}
+
+console.log("Starting wheel...")
+const errorHook = (err: any) => {
+    console.error("Failed to refresh drives!");
+    console.error(err);
+};
+const timer = setInterval(async () => {
+    try {
+        await refreshDrives();
+        currentDrive = (currentDrive + 1) % Alters;
+    } catch (err) {
+        errorHook(err);
+    }
+}, WheelCycleLength);
+
+export function wheelGen(): () => Wheel {
     return () => { return {
         stop: () => {
             clearInterval(timer);
